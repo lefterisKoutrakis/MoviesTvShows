@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">MoviesTvShows</string>
+    <string name="the_movie">The Movie DB</string>
+    <string name="api_key">6b2e856adafcc7be98bdf0d8b076851c</string>
+    <string name="url">api.themoviedb.org</string>
+    <string name="net_act">/</string>
+    <string name="url_pre">3</string>
+    <string name="url_search">search</string>
+    <string name="url_movie">movie</string>
+    <string name="url_tv">tv</string>
+    <string name="url_api_key">multi?api_key</string>
+    <string name="url_api_key_no_multi">api_key</string>
+    <string name="url_query">query</string>
+    <string name="url_page">page</string>
+    <string name="str_search">search</string>
+    <string name="uri_poster_path">https://image.tmdb.org/t/p/w500/</string>
+    <string name="summary">Summary:</string>
+    <string name="genre">Genre:</string>
+</resources>

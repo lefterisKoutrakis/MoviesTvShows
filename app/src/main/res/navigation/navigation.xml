@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/placeholder">
+
+    <fragment
+        android:id="@+id/moviesListFragment"
+        android:name="gr.kouto.moviestvshows.ListFragment.MoviesListFragment"
+        android:label="MoviesListFragment" >
+        <action
+            android:id="@+id/action_moviesListFragment_to_moviesDetailsFragment"
+            app:destination="@id/moviesDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/placeholder"
+        android:name="androidx.fragment.app.Fragment">
+        <action
+            android:id="@+id/action_placeholder_to_moviesListFragment"
+            app:destination="@id/moviesListFragment"
+            app:popUpTo="@+id/placeholder"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/moviesDetailsFragment"
+        android:name="gr.kouto.moviestvshows.DetailsFragment.MoviesDetailsFragment"
+        android:label="MoviesDetailsFragment" />
+</navigation>
