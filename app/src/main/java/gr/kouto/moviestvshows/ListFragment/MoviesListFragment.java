@@ -51,6 +51,7 @@ public class MoviesListFragment extends Fragment implements TvMoviesContract.Vie
     ListedTvMoviesShows listedTvMoviesShows;
     public ProgressBar progressBar;
     String searchQuery = "";
+    Bundle saveState;
     boolean searchOffline = false;
 
     @Override
@@ -59,7 +60,7 @@ public class MoviesListFragment extends Fragment implements TvMoviesContract.Vie
         presenter = new TvMoviesPresenter(Injection.provideAppRepository(getActivity(),
                 TvMoviesDataSource.class),this);
         listedTvMoviesShows = new ListedTvMoviesShows();
-        setRetainInstance(true);
+
     }
 
     @Nullable
@@ -84,6 +85,9 @@ public class MoviesListFragment extends Fragment implements TvMoviesContract.Vie
                 return false;
             }
         });
+        if(saveState != null){
+            listedTvMoviesShows = saveState.getParcelable("listedObjects");
+        }
         initializeToolbarMenu();
         setSearchListener("");
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -95,6 +99,13 @@ public class MoviesListFragment extends Fragment implements TvMoviesContract.Vie
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         mAdapter = new MoviesListAdapter(getActivity(), GlideApp.with(this), listedTvMoviesShows, recyclerView, this);
         recyclerView.setAdapter(mAdapter);
+
+        if(savedInstanceState != null) {
+            listedTvMoviesShows = savedInstanceState.getParcelable("list");
+            searchQuery = savedInstanceState.getString("SearchQuery");
+            mAdapter.setFilter(listedTvMoviesShows,false);
+            pageNum = savedInstanceState.getInt("pageNum");
+        }
 
         mAdapter.setOnLoadMoreListener(new OnLoadMore() {
             @Override
@@ -156,6 +167,16 @@ public class MoviesListFragment extends Fragment implements TvMoviesContract.Vie
             mAdapter.setFilter(listedTvMoviesShows,false);
             pageNum = savedInstanceState.getInt("pageNum");
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        saveState = new Bundle();
+        saveState.putString("searchQuery", searchQuery);
+        if(mAdapter != null)
+            saveState.putParcelable("listedObjects", mAdapter.listedTvMoviesShows);
+        setArguments(saveState);
     }
 
     @Override
